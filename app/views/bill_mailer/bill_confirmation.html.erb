@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <h2>Bill #<%= @bill.id %> Details</h2>
+    Created by: <%= @bill.user.name.nil? ? "Guest User" : @bill.user.name %> on <%= @bill.created_at.to_time.strftime('%B %e at %l:%M %p') %>
+    <p>Bill Name: <%= @bill.name %></p>
+    <% unless @bill.description.blank? %>
+      <p>Bill Description: <%= @bill.description %></p>
+    <% end %>
+    <p>Bill Amount: $<%= @bill.amount %></p>
+    <% @guests.each do |guest| %>
+      <p><%= guest.name %> paid $<%= guest.amount_paid %>. <%= guest.name %> should have paid $<%= guest.amount_should_have_paid %>.</p>
+    <% end %>
+    <% @debts.each do |debt| %>
+      <p><%= debt.debtor_name %> <%= debt.debtor_name == "You" ? "owe" : "owes" %> <%= debt.creditor_name %> $<%= debt.amount %>.</p>
+    <% end %>
+    <br>
+    <p>Create an account to use advanced features.</p>
+    <p>Thanks for using Bill Splitter and have a great day!</p>
+  </body>
+</html>

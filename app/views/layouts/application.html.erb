@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bill Splitter: An App for Group Expenses</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<div class="container">
+	<div class="row">
+		<div class="span3">
+
+		</div>
+		<div class="span6">
+			<% if flash[:notice] %>
+				<br>
+				<div class="alert">
+				  <button type="button" class="close" data-dismiss="alert">&times;</button>
+				  <strong>Message:</strong> <%= flash[:notice] %>
+				</div>
+			<% end %>
+
+			<%= yield %>
+		</div>
+		<div class="span3">
+			<% if current_user && current_user.guest? %>
+				<%= link_to "Create Account", new_user_url %> | <%= link_to "Login", login_url %>
+			<% else %>
+				<span class="label label-success"> Logged in as </span> <%= current_user.email %>
+				<br>
+				<%= link_to "Profile", user_url(current_user) %>
+				<br>
+				<%= link_to "Logout", logout_url %>
+			<% end %>
+			<br>
+			<h3>How to use:</h3>
+			<ol>
+				<li>Add a new bill.</li>
+				<li>Select if you want to split evenly or split by exact amounts.</li>
+				<li>List your friends who were part of the bill.</li>
+				<li>Bill Splitter will calculate who owes what amount to whom.</li>
+				<li>Email bill details to yourself and friends.</li>
+			</ol>
+			<br>
+			<h4>Create a free account for more features:</h4>
+			<ul>
+				<li>Save and edit your bills.</li>
+				<li>View payment history.</li>
+				<li>Keep track of payments to friends.</li>
+				<li>Use Paypal to pay friends.</li>
+			</ul>
+			<br>
+			<div id="bio">
+				<h4>About Bill Splitter</h4>
+				<p>I built Bill Splitter with Ruby, Rails, jQuery/JavaScript, and Twitter Bootstrap. I love learning about technology and building things.</p>
+				<p>Email me: rails753developer@gmail.com</p>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+if (typeof Iou === "undefined") {
+	Iou = {};
+}
+
+<% if current_user.guest? %>
+	Iou.currentUserId = "You";
+<% else %>
+	Iou.currentUserId = <%= current_user.id %>;
+<% end %>
+</script>
+</body>
+</html>

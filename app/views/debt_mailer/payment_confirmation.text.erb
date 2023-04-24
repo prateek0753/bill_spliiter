@@ -1,0 +1,11 @@
+Payment #<%= @debt.id %>
+Created: <%= @debt.created_at.to_time.strftime('%B %e at %l:%M %p') %>
+Amount: $<%= @debt.amount %>
+Memo: <%= @debt.memo %>
+Paid by: <%= @debt.creditor_name %>
+Paid to: <%= @debt.debtor_name %>
+Created: <%= @debt.created_at %>
+
+
+Create an account to use advanced features.
+Thanks for using Bill Splitter and have a great day!

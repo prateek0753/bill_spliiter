@@ -1,0 +1,22 @@
+<h2>Payment #<%= @debt.id %></h2>
+<p>Created: <%= @debt.created_at.to_time.strftime('%B %e at %l:%M %p') %></p>
+<p>Amount: $<%= sprintf( "%0.02f", @debt.amount) %></p>
+<% if @debt.memo %>
+	<p>Memo: <%= @debt.memo %></p>
+<% end %>
+<p>Paid by: <%= @debt.creditor_name %></p>
+<p>Paid to: <%= @debt.debtor_name %></p>
+<br>
+
+<div id="request-payment-confirmation">
+	<input type="email" id="confirmation-email-address" placeholder="email@example.com"><button id="send-payment-email" data-id=<%= @debt.id %> class="btn btn-primary"> Send Confirmation Email </button>
+</div>
+<br>
+<br>
+<div id="email-status">
+</div>
+<% if current_user.guest? %>
+	<p><%= link_to "Create Account", new_user_url %> to save this payment record.</p>
+<% end %>
+
+<p><%= link_to "Back to index", root_url %></p>
